@@ -14,6 +14,7 @@
 		54E1885127E4BCF00024AD9F /* MusicAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E1885027E4BCF00024AD9F /* MusicAppTests.swift */; };
 		54E1885B27E4BCF00024AD9F /* MusicAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E1885A27E4BCF00024AD9F /* MusicAppUITests.swift */; };
 		54E1885D27E4BCF00024AD9F /* MusicAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E1885C27E4BCF00024AD9F /* MusicAppUITestsLaunchTests.swift */; };
+		54E1886A27E5817B0024AD9F /* BlurEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E1886927E5817B0024AD9F /* BlurEffect.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		54E1885627E4BCF00024AD9F /* MusicAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MusicAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		54E1885A27E4BCF00024AD9F /* MusicAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAppUITests.swift; sourceTree = "<group>"; };
 		54E1885C27E4BCF00024AD9F /* MusicAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		54E1886927E5817B0024AD9F /* BlurEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurEffect.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 			children = (
 				54E1883F27E4BCEF0024AD9F /* MusicAppApp.swift */,
 				54E1884127E4BCEF0024AD9F /* ContentView.swift */,
+				54E1886927E5817B0024AD9F /* BlurEffect.swift */,
 				54E1884327E4BCF00024AD9F /* Assets.xcassets */,
 				54E1884527E4BCF00024AD9F /* Preview Content */,
 			);
@@ -257,6 +260,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54E1886A27E5817B0024AD9F /* BlurEffect.swift in Sources */,
 				54E1884227E4BCEF0024AD9F /* ContentView.swift in Sources */,
 				54E1884027E4BCEF0024AD9F /* MusicAppApp.swift in Sources */,
 			);
@@ -425,6 +429,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -454,6 +459,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
