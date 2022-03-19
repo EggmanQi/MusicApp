@@ -45,14 +45,27 @@ struct AlbumArt : View {
 struct SongCell : View {
     var song : Song
     var body: some View {
-        EmptyView()
+        HStack {
+            ZStack {
+                Circle()
+                    .frame(width: 50, height: 50, alignment: .center)
+                    .foregroundColor(.blue)
+                Circle()
+                    .frame(width: 20, height: 20, alignment: .center)
+                    .foregroundColor(.white)
+            }
+            Text(song.name).bold()
+            Spacer()
+            Text(song.time)
+        }
+        .padding(20)
     }
 }
 
 struct ContentView: View {
     
     var albums = createDemoAlbums()
-    var currenAlbum : Album?
+    @State private var currenAlbum : Album?
     
     var body: some View {
         NavigationView{
@@ -62,7 +75,9 @@ struct ContentView: View {
                            content: {
                     LazyHStack {
                         ForEach(self.albums, id: \.self, content: { album in
-                            AlbumArt(album: album)
+                            AlbumArt(album: album).onTapGesture{
+                                self.currenAlbum = album
+                            }
                         })
                     }
                 })
@@ -79,19 +94,14 @@ struct ContentView: View {
                             SongCell(song: song)
                         })
                 }
-            }
+            }.navigationTitle("My band name.")
         }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        AlbumArt(album: Album(name: "Album-1", image: "1", songs: [
-            Song(name: "Song-1", time: "2:00"),
-            Song(name: "Song-2", time: "2:30"),
-            Song(name: "Song-3", time: "3:00"),
-            Song(name: "Song-4", time: "3:30"),
-        ]))
+        SongCell(song: Song(name: "The dark end", time: "2:36"))
     }
 }
 
