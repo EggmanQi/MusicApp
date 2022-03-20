@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+//MARK: 数据结构
 struct Album : Hashable {
     var id = UUID()
     var name : String
@@ -67,6 +68,7 @@ struct ContentView: View {
     var albums = createDemoAlbums()
     @State private var currenAlbum : Album?
     
+    //MARK: Swift UI 布局方式
     var body: some View {
         NavigationView{
             ScrollView {
@@ -99,9 +101,11 @@ struct ContentView: View {
     }
 }
 
+//MARK: 类似 hot reload 的即时浏览 UI 效果
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         SongCell(song: Song(name: "The dark end", time: "2:36"))
+        AlbumArt(album: Album(name: "Any Moment Now", image: "3", songs: [Song(name: "The dark end", time: "2:36")]))
     }
 }
 
