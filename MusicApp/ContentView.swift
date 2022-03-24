@@ -9,18 +9,7 @@
 import SwiftUI
 
 //MARK: 数据结构
-struct Album : Hashable {
-    var id = UUID()
-    var name : String
-    var image : String
-    var songs : [Song]
-}
 
-struct Song : Hashable {
-    var id = UUID()
-    var name : String
-    var time : String
-}
 
 struct AlbumArt : View {
     var album : Album
@@ -116,7 +105,7 @@ struct ContentView: View {
 //MARK: 类似 hot reload 的即时浏览 UI 效果
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        let album = Album(name: "Any Moment Now", image: "3", songs: [Song(name: "The dark end", time: "2:36")])
+        let album = Album(name: "Any Moment Now", image: "3", songs: [Song(name: "The dark end", time: "2:36", file: "")])
 //        SongCell(album: album, song: Song(name: "The dark end", time: "2:36"))
         AlbumArt(album: album, isWithText: false)
     }

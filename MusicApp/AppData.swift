@@ -9,6 +9,20 @@ import Foundation
 import SwiftUI
 import Firebase
 
+struct Album : Hashable {
+    var id = UUID()
+    var name : String
+    var image : String
+    var songs : [Song]
+}
+
+struct Song : Hashable {
+    var id = UUID()
+    var name : String
+    var time : String
+    var file : String
+}
+
 class AppData : ObservableObject {
     
     func loadAlbums() {
@@ -28,7 +42,10 @@ class AppData : ObservableObject {
                         for s in songs {
                             let songName = s.value["name"] as? String ?? "song name error"
                             let songTime = s.value["time"] as? String ?? "song time error"
-                            songsArr.append(Song(name: songName, time: songTime))
+                            let songFile = s.value["file"] as? String ?? "song file error"
+                            songsArr.append(Song(name: songName,
+                                                 time: songTime,
+                                                 file: songFile))
                         }
                     }
                     
@@ -40,42 +57,5 @@ class AppData : ObservableObject {
     
     //MARK: @Published public 项目内任何文件都可见
     @Published public var albums = [Album]()
-//    [
-//        Album(name: "Album-1", image: "1", songs: [
-//            Song(name: "Song-1", time: "2:00"),
-//            Song(name: "Song-2", time: "2:30"),
-//            Song(name: "Song-3", time: "3:00"),
-//            Song(name: "Song-4", time: "3:30"),
-//        ]),
-//        Album(name: "Album-2", image: "2", songs: [
-//            Song(name: "Song-5", time: "2:00"),
-//            Song(name: "Song-6", time: "2:30"),
-//            Song(name: "Song-7", time: "3:00"),
-//            Song(name: "Song-8", time: "3:30"),
-//        ]),
-//        Album(name: "Album-3", image: "3", songs: [
-//            Song(name: "Song-1", time: "2:00"),
-//            Song(name: "Song-2", time: "2:30"),
-//            Song(name: "Song-3", time: "3:00"),
-//            Song(name: "Song-4", time: "3:30"),
-//        ]),
-//        Album(name: "Album-4", image: "4", songs: [
-//            Song(name: "Song-5", time: "2:00"),
-//            Song(name: "Song-6", time: "2:30"),
-//            Song(name: "Song-7", time: "3:00"),
-//            Song(name: "Song-8", time: "3:30"),
-//        ]),
-//        Album(name: "Album-5", image: "5", songs: [
-//            Song(name: "Song-1", time: "2:00"),
-//            Song(name: "Song-2", time: "2:30"),
-//            Song(name: "Song-3", time: "3:00"),
-//            Song(name: "Song-4", time: "3:30"),
-//        ]),
-//        Album(name: "Album-6", image: "6", songs: [
-//            Song(name: "Song-5", time: "2:00"),
-//            Song(name: "Song-6", time: "2:30"),
-//            Song(name: "Song-7", time: "3:00"),
-//            Song(name: "Song-8", time: "3:30"),
-//        ]),
-//    ]
+
 }

@@ -6,14 +6,15 @@
 //
 
 import Foundation
-
 import SwiftUI
+import Firebase
+import AVFoundation
 
 struct PlayerView : View {
     
-    var album : Album
-    var song : Song
-    
+    @State var album : Album
+    @State var song : Song
+    let player = AVPlayer()
     @State var isPlaying : Bool = false
     
     var body: some View {
@@ -48,25 +49,81 @@ struct PlayerView : View {
                     }
                 }.edgesIgnoringSafeArea(.bottom).frame(height: 140, alignment: .center)
             }
+        }.onAppear() {
+            handleIngoreMutedState()
+            loadSong(self.song)
+        }
+        .onDisappear() {
+            player.pause()
+        }
+    }
+    
+    func handleIngoreMutedState() {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+        }
+        catch {
+            //MARK: report for an error
+        }
+    }
+    
+    func loadSong(_ song: Song)  {
+        let storage = Storage.storage().reference(forURL: song.file)
+        storage.downloadURL { url, error in
+            if error != nil {
+              print(error)
+            } else {
+                player.pause()
+                player.replaceCurrentItem(with: AVPlayerItem(url: url!))
+                if isPlaying == false {
+                    playPause()
+                }
+            }
         }
     }
     
     func playPause()  {
+        if isPlaying {
+            player.pause()
+        }else {
+            player.play()
+        }
+        
         self.isPlaying.toggle() //触发 bool 切换
     }
     func next()  {
-        
+        if let current = album.songs.firstIndex(of: song) {
+            if current == album.songs.count-1 {
+                song = album.songs.first!
+            } else {
+                song = album.songs[current + 1]
+            }
+        }
+        if isPlaying == true {
+            playPause()
+        }
+        loadSong(song)
     }
     func previous()  {
-        
+        if let current = album.songs.firstIndex(of: song) {
+            if current == 0 {
+                song = album.songs.last!
+            } else {
+                song = album.songs[current - 1]
+            }
+        }
+        if isPlaying == true {
+            playPause()
+        }
+        loadSong(song)
     }
 }
 
-struct PlayerView_Previews: PreviewProvider {
-    static var previews: some View {
-        let song = Song(name: "The dark end", time: "2:36")
-        let album = Album(name: "Any Moment Now", image: "3", songs: [song])
-        
-        PlayerView(album: album, song: song)
-    }
-}
+//struct PlayerView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let song = Song(name: "The dark end", time: "2:36", file: "")
+//        let album = Album(name: "Any Moment Now", image: "3", songs: [song])
+//
+//        PlayerView(album: album, song: song)
+//    }
+//}
