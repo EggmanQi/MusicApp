@@ -72,7 +72,8 @@ struct SongCell : View {
 
 struct ContentView: View {
     
-    var albums = createDemoAlbums()
+    @ObservedObject var appData : AppData //TODO: 如何监听？
+    
     @State private var currenAlbum : Album?
     
     //MARK: Swift UI 布局方式
@@ -83,7 +84,7 @@ struct ContentView: View {
                            showsIndicators: false,
                            content: {
                     LazyHStack {
-                        ForEach(self.albums, id: \.self, content: { album in
+                        ForEach(self.appData.albums, id: \.self, content: { album in
                             AlbumArt(album: album, isWithText: true).onTapGesture{
                                 self.currenAlbum = album
                                 withAnimation {
@@ -91,16 +92,22 @@ struct ContentView: View {
                                 }
                             }
                         })
-                    }
-                })
+                    }.background(Color.red) //TODO: 为什么特别高
+                }) .frame(alignment: .top).background(Color.accentColor)
                 LazyVStack{
-                    ForEach(
-                        (self.currenAlbum?.songs ?? self.albums.first!.songs) ,
-                        id: \.self,
-                        content: { song in
-                            SongCell(album: self.currenAlbum ?? self.albums.first!, song: song)
-                        })
+                    if self.appData.albums.first == nil {
+                        //TODO: 异常处理页
+                        EmptyView()
+                    }else {
+                        ForEach(
+                            (self.currenAlbum?.songs ?? self.appData.albums.first!.songs) ,
+                            id: \.self,
+                            content: { song in
+                                SongCell(album: self.currenAlbum ?? self.appData.albums.first!, song: song)
+                            })
+                    }
                 }
+                .background(Color.yellow)
             }.navigationTitle("My band name.")
         }
     }
@@ -110,48 +117,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let album = Album(name: "Any Moment Now", image: "3", songs: [Song(name: "The dark end", time: "2:36")])
-        SongCell(album: album, song: Song(name: "The dark end", time: "2:36"))
+//        SongCell(album: album, song: Song(name: "The dark end", time: "2:36"))
         AlbumArt(album: album, isWithText: false)
     }
-}
-
-func createDemoAlbums() -> [Album] {
-    return [
-        Album(name: "Album-1", image: "1", songs: [
-            Song(name: "Song-1", time: "2:00"),
-            Song(name: "Song-2", time: "2:30"),
-            Song(name: "Song-3", time: "3:00"),
-            Song(name: "Song-4", time: "3:30"),
-        ]),
-        Album(name: "Album-2", image: "2", songs: [
-            Song(name: "Song-5", time: "2:00"),
-            Song(name: "Song-6", time: "2:30"),
-            Song(name: "Song-7", time: "3:00"),
-            Song(name: "Song-8", time: "3:30"),
-        ]),
-        Album(name: "Album-3", image: "3", songs: [
-            Song(name: "Song-1", time: "2:00"),
-            Song(name: "Song-2", time: "2:30"),
-            Song(name: "Song-3", time: "3:00"),
-            Song(name: "Song-4", time: "3:30"),
-        ]),
-        Album(name: "Album-4", image: "4", songs: [
-            Song(name: "Song-5", time: "2:00"),
-            Song(name: "Song-6", time: "2:30"),
-            Song(name: "Song-7", time: "3:00"),
-            Song(name: "Song-8", time: "3:30"),
-        ]),
-        Album(name: "Album-5", image: "5", songs: [
-            Song(name: "Song-1", time: "2:00"),
-            Song(name: "Song-2", time: "2:30"),
-            Song(name: "Song-3", time: "3:00"),
-            Song(name: "Song-4", time: "3:30"),
-        ]),
-        Album(name: "Album-6", image: "6", songs: [
-            Song(name: "Song-5", time: "2:00"),
-            Song(name: "Song-6", time: "2:30"),
-            Song(name: "Song-7", time: "3:00"),
-            Song(name: "Song-8", time: "3:30"),
-        ]),
-    ]
 }
